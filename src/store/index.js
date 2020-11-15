@@ -36,7 +36,8 @@ export default new Vuex.Store({
         short_break: 1,
         long_break: 1
       }
-    }
+    },
+    goals: []
   },
   mutations: {
     setCurrentTimer(state, payload) {
@@ -52,6 +53,17 @@ export default new Vuex.Store({
       state.timers.pomodoro.time = state.settings.times.pomodoro
       state.timers.short_break.time = state.settings.times.short_break
       state.timers.long_break.time = state.settings.times.long_break
+    },
+    setGoal(state, payload) {
+      state.goals.push({
+        session: payload.session,
+        startTime: payload.startTime,
+        endTime: payload.endTime
+      })
+      console.log(state.goals)
+    },
+    updateGoal(state, payload) {
+
     }
   },
   actions: {
@@ -61,6 +73,9 @@ export default new Vuex.Store({
         commit('updateTimers')
         resolve('updateSettings')
       }))
+    },
+    setGoal({commit, state}, payload) {
+      commit('setGoal', payload)
     }
   },
   modules: {

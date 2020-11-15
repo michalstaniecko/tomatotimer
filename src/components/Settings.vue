@@ -1,6 +1,6 @@
 <template>
   <b-modal
-      v-model="settingsShow"
+      v-model="_settingsShow"
       @hidden="closeModal"
       centered
       title="Settings"
@@ -107,6 +107,16 @@ export default {
           })
     }
   },
+  computed: {
+    _settingsShow: {
+      get() {
+        return this.settingsShow
+      },
+      set() {
+        return !this.settingsShow
+      }
+    }
+  }
 }
 </script>
 
