@@ -1,36 +1,49 @@
 <template>
   <div id="app" class="">
     <Header/>
-    <Sessions />
-    <Timer />
+    <Sessions/>
+    <Timer/>
   </div>
 </template>
 
 <script>
 
 
-import Header from "@/components/Header";
-import Sessions from "@/components/Sessions";
-import Timer from "@/components/Timer";
-export default {
-  name: 'App',
-  data() {
-    return {
+  import Header from "@/components/Header";
+  import Sessions from "@/components/Sessions";
+  import Timer from "@/components/Timer";
 
-    }
-  },
-  components: {
-    Timer,
-    Sessions,
-    Header
+  export default {
+    name: 'App',
+    data() {
+      return {}
+    },
+    components: {
+      Timer,
+      Sessions,
+      Header
 
-  },
-  computed: {
-    time() {
-      return this.$store.state.timers.pomodoro.time
+    },
+    computed: {
+      time() {
+        return this.$store.state.timers.pomodoro.time
+      }
+    },
+    methods: {
+
+    },
+    beforeCreate() {
+      if (!('Notification' in window)) {
+        console.log('This browser does not support notifications')
+      } else {
+        Notification.requestPermission()
+            .then((permission) => {
+              this.$store.dispatch('updateNotificationPermission', permission === "granted" ? true : null)
+            })
+      }
+
     }
   }
-}
 </script>
 
 <style lang="scss">

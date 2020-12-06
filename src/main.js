@@ -13,6 +13,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueCountdownTimer)
 
+
 new Vue({
   store,
   render: h => h(App)

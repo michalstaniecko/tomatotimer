@@ -9,7 +9,7 @@
       <div class="input-group">
         <label><input type="checkbox" v-model="settings.timerIndicationInTitle"/> Timer indication in title?</label>
       </div>
-      <div class="input-group">
+      <div class="input-group" v-if="settings.browserNotification !== null">
         <label><input type="checkbox" v-model="settings.browserNotification"/> Browser notifications?</label>
       </div>
       <div class="input-group">

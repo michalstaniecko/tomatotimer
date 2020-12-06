@@ -26,7 +26,7 @@ export default new Vuex.Store({
     },
     settings: {
       timerIndicationInTitle: true,
-      browserNotification: true,
+      browserNotification: null,
       autoStartPomodorosAndBreaks: false,
       goals: 1,
       sound: 2,
@@ -76,6 +76,9 @@ export default new Vuex.Store({
     },
     setGoal({commit, state}, payload) {
       commit('setGoal', payload)
+    },
+    updateNotificationPermission({commit, state}, payload) {
+      state.settings.browserNotification = payload
     }
   },
   modules: {

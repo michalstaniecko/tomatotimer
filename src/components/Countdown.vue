@@ -7,6 +7,7 @@
 <script>
   import moment from 'moment'
   import 'moment/locale/pl'
+  import audio from './../audio/twin-bell-alarm-clock-ringing-short.mp3'
 
   moment.locale('pl')
   const dateFormat = 'dddd, MMMM Do YYYY, HH:mm:ss'
@@ -43,19 +44,38 @@
     },
 
     methods: {
+      showNotification() {
+        if (this.$store.state.settings.browserNotification) {
+          const title = 'Sardynki Biznesu - Tomato Timer'
+          const body = 'Twój czas minął!'
+          const notification = new Notification(title, { body })
+          notification.onclick = () => {
+            notification.close()
+            window.parent.focus()
+          }
+        }
+      },
+      playAudio() {
+        if (this.$store.state.settings.volume == 0) return false
+        const audio = new Audio(require('./../audio/twin-bell-alarm-clock-ringing-short.mp3'))
+        audio.volume = this.$store.state.settings.volume / 100
+        audio.play()
+      },
       startCountdown() {
         this.countdownHandler = setInterval(this.countdownDecrease, 1000)
         this.startTime = moment().format(dateFormat)
       },
       countdownDecrease() {
         this.timer = 1
-        if (this.timer === 0) {
+        if (this.timer ===55) {
           this.stopCountdown()
           this.$store.dispatch('setGoal', {
             startTime: this.startTime,
             endTime: moment().format(dateFormat),
             session: 'pomodoro'
           })
+          this.showNotification()
+          this.playAudio()
         }
       },
       stopCountdown() {
