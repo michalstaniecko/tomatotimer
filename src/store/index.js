@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     timers: {
       pomodoro: {
-        time: 25,
+        time: 1,
         session: 'pomodoro'
       },
       short_break: {

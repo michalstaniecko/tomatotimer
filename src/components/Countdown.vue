@@ -48,11 +48,17 @@
         if (this.$store.state.settings.browserNotification) {
           const title = 'Sardynki Biznesu - Tomato Timer'
           const body = 'Twój czas minął!'
-          const notification = new Notification(title, { body })
-          notification.onclick = () => {
-            notification.close()
-            window.parent.focus()
+          //TODO: obsługa powiadomień na mobile
+          try {
+            const notification = new Notification(title, { body })
+            notification.onclick = () => {
+              notification.close()
+              window.parent.focus()
+            }
+          } catch (error) {
+            console.log('Powiadomienia wyłączone na mobile!')
           }
+
         }
       },
       playAudio() {
@@ -67,7 +73,7 @@
       },
       countdownDecrease() {
         this.timer = 1
-        if (this.timer ===55) {
+        if (this.timer === 55) {
           this.stopCountdown()
           this.$store.dispatch('setGoal', {
             startTime: this.startTime,
