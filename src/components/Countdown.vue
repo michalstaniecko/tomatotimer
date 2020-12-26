@@ -14,13 +14,14 @@
 
   export default {
     name: "Countdown",
-    props: ['timerStatus'],
+
     data() {
       return {
         time: 0,
         countdownHandler: null,
         timePassed: 0,
-        startTime: null
+        startTime: null,
+        currentTimerBefore: null
       }
     },
 
@@ -38,9 +39,14 @@
             break
         }
       },
+
       time() {
         this.resetCountdown()
-      }
+      },
+
+      currentTimer() {
+        this.status = 'stop'
+      },
     },
 
     methods: {
@@ -50,7 +56,7 @@
           const body = 'Twój czas minął!'
           //TODO: obsługa powiadomień na mobile
           try {
-            const notification = new Notification(title, { body })
+            const notification = new Notification(title, {body})
             notification.onclick = () => {
               notification.close()
               window.parent.focus()
@@ -61,16 +67,19 @@
 
         }
       },
+
       playAudio() {
         if (this.$store.state.settings.volume == 0) return false
         const audio = new Audio(require('./../audio/twin-bell-alarm-clock-ringing-short.mp3'))
         audio.volume = this.$store.state.settings.volume / 100
         audio.play()
       },
+
       startCountdown() {
         this.countdownHandler = setInterval(this.countdownDecrease, 1000)
         this.startTime = moment().format(dateFormat)
       },
+
       countdownDecrease() {
         this.timer = 1
         if (this.timer === 55) {
@@ -84,15 +93,20 @@
           this.playAudio()
         }
       },
+
       stopCountdown() {
         clearInterval(this.countdownHandler)
       },
+
       resetCountdown() {
         this.stopCountdown()
         this.$store.commit('setTimerStatus', {
           status: 'stop'
         })
         this.timePassed = 0
+        if (this.$store.state.settings.autoStartPomodorosAndBreaks) {
+          this.status = 'start'
+        }
       }
     },
 
@@ -108,8 +122,20 @@
         }
       },
 
-      status() {
-        return this.$store.state.timerStatus
+      status: {
+        get() {
+          return this.$store.state.timerStatus
+        },
+
+        set(value) {
+          this.$store.commit('setTimerStatus', {status: value})
+        }
+      },
+
+      currentTimer: {
+        get() {
+          return this.$store.state.currentTimer
+        }
       },
 
       minutes() {
