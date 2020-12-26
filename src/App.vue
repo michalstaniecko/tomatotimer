@@ -29,10 +29,13 @@
         return this.$store.state.timers.pomodoro.time
       }
     },
-    methods: {
-
-    },
+    methods: {},
     beforeCreate() {
+      if (localStorage.settings){
+        const settings = JSON.parse(localStorage.getItem('settings'))
+        this.$store.dispatch('updateSettings', {settings: settings})
+      }
+
       if (!('Notification' in window)) {
         console.log('This browser does not support notifications')
       } else {

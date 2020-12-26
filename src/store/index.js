@@ -71,6 +71,7 @@ export default new Vuex.Store({
       return new Promise(((resolve, reject) => {
         commit('setSettings', payload)
         commit('updateTimers')
+        localStorage.setItem('settings', JSON.stringify(state.settings))
         resolve('updateSettings')
       }))
     },
