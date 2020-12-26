@@ -116,6 +116,10 @@ export default {
         return !this.settingsShow
       }
     }
+  },
+
+  created() {
+    this.save()
   }
 }
 </script>

@@ -32,9 +32,9 @@ export default new Vuex.Store({
       sound: 2,
       volume: 50,
       times: {
-        pomodoro: 25,
+        pomodoro: 5,
         short_break: 1,
-        long_break: 1
+        long_break: 2
       }
     },
     goals: []
