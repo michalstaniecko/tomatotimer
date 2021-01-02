@@ -3,24 +3,25 @@
     v-model="show"
     @hidden="closeModal()"
     centered
+    size="xl"
     title="Timer Logs"
     >
     <template #default>
       <div>
-        <table>
+        <table class="table table-sm">
           <thead>
             <tr>
               <th>
-                Session
+                {{ $t('Session') }}
               </th>
               <th>
-                Start time
+                {{ $t('Start time') }}
               </th>
               <th>
-                End time
+                {{ $t('End time') }}
               </th>
               <th>
-                Description
+                {{ $t('Description') }}
               </th>
             </tr>
           </thead>

@@ -1,16 +1,20 @@
 <template>
   <tr>
-    <td>
+    <td class="">
       {{ goal.session }}
     </td>
-    <td>
+    <td class="">
       {{ goal.startTime }}
     </td>
-    <td>
+    <td class="">
       {{ goal.endTime }}
     </td>
     <td>
-      <input type="text" v-model="description"/>
+      <input
+          type="text"
+          v-model="description"
+          class="form-control"
+      />
     </td>
   </tr>
 </template>
@@ -27,6 +31,8 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  td {
+    vertical-align: bottom;
+  }
 </style>

@@ -9,6 +9,11 @@
          class="btn btn-dark"
          @click.prevent="settingsShow = !settingsShow"
       >Settings</a>
+      <a href="#"
+         @click.prevent="$i18n.locale='en'"
+         class="btn btn-dark">
+        ENG
+      </a>
     </div>
     <Settings :settings-show.sync="settingsShow"/>
     <Logs :logs-show.sync="logsShow"/>

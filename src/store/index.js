@@ -32,7 +32,7 @@ export default new Vuex.Store({
       sound: 2,
       volume: 50,
       times: {
-        pomodoro: 5,
+        pomodoro: 5/60,
         short_break: 1,
         long_break: 2
       }

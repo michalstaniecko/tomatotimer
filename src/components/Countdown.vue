@@ -82,7 +82,7 @@
 
       countdownDecrease() {
         this.timer = 1
-        if (this.timer === 55) {
+        if (this.timer === 0) {
           this.stopCountdown()
           this.$store.dispatch('setGoal', {
             startTime: this.startTime,
