@@ -70,9 +70,12 @@
 
       playAudio() {
         if (this.$store.state.settings.volume == 0) return false
-        const audio = new Audio(require('./../audio/twin-bell-alarm-clock-ringing-short.mp3'))
+        const audio = new Audio(this.$store.getters.getSelectedAudio)
         audio.volume = this.$store.state.settings.volume / 100
         audio.play()
+        setTimeout(() => {
+          audio.pause()
+        }, 5000)
       },
 
       startCountdown() {

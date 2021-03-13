@@ -26,9 +26,9 @@
         <label for="sound">Select</label>
         <div class="input-group" id="sound">
           <select size="5" class="form-control" v-model="settings.sound">
-            <option value="1">sound 1</option>
-            <option value="2">sound 2</option>
-            <option value="3">sound 3</option>
+            <option value="0">sound 1</option>
+            <option value="1">sound 2</option>
+            <option value="2">sound 3</option>
           </select>
         </div>
       </div>
@@ -51,20 +51,23 @@
         <div class="form-row">
           <div class="col-sm-4">
             Pomodoro
-            <input type="number" v-model.number="settings.times.pomodoro" class="form-control"/>
+            <input type="number" step="1" v-model.number="settings.times.pomodoro" class="form-control"/>
           </div>
           <div class="col-sm-4">
             Short break
-            <input type="number" v-model.number="settings.times.short_break" class="form-control"/>
+            <input type="number" step="1" v-model.number="settings.times.short_break" class="form-control"/>
           </div>
           <div class="col-sm-4">
             Long break
-            <input type="number" v-model.number="settings.times.long_break" class="form-control"/>
+            <input type="number" step="1" v-model.number="settings.times.long_break" class="form-control"/>
           </div>
         </div>
       </div>
     </template>
     <template #modal-footer>
+      <b-button variant="" @click="soundTest()">
+        Sound test
+      </b-button>
       <b-button variant="danger" @click="cancel()">
         Cancel
       </b-button>
@@ -90,6 +93,15 @@ export default {
   },
 
   methods: {
+    soundTest() {
+      if (this.settings.volume == 0) return false
+      const audio = new Audio(this.$store.getters.getAudioById(this.settings.sound))
+      audio.volume = this.settings.volume / 100
+      audio.play()
+      setTimeout(() => {
+        audio.pause()
+      }, 1000)
+    },
     closeModal() {
       this.$emit('update:settingsShow', false)
     },

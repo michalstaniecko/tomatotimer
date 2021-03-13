@@ -37,7 +37,12 @@ export default new Vuex.Store({
         long_break: 2
       }
     },
-    goals: []
+    goals: [],
+    audio: [
+      require('./../audio/Alarm-ringtone.mp3'),
+      require('./../audio/alarm_beeps.mp3'),
+      require('./../audio/alarm_clock.mp3')
+    ]
   },
   mutations: {
     setCurrentTimer(state, payload) {
@@ -80,6 +85,14 @@ export default new Vuex.Store({
     },
     updateNotificationPermission({commit, state}, payload) {
       state.settings.browserNotification = payload
+    }
+  },
+  getters: {
+    getSelectedAudio: state => {
+      return state.audio[parseInt(state.settings.sound)]
+    },
+    getAudioById: state => id => {
+      return state.audio[parseInt(id)]
     }
   },
   modules: {
